@@ -6,6 +6,7 @@ use App\Rules\ExistTransactionToday;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\JsonResponse;
 
 class AddWorkReportRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class AddWorkReportRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'employee_id' => ['required', 'integer', 'exists:employees,id', new ExistTransactionToday],
@@ -22,7 +23,7 @@ class AddWorkReportRequest extends FormRequest
         ];
     }
 
-    public function failedValidation(Validator $validator)
+    public function failedValidation(Validator $validator): JsonResponse
     {
         throw new HttpResponseException(response()->json([
             'success'   => false,
@@ -31,7 +32,7 @@ class AddWorkReportRequest extends FormRequest
         ], 400));
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'employee_id.required' => 'employee_id обязательно для заполнения',

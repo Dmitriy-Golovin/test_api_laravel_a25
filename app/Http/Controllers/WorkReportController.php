@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class WorkReportController extends Controller
 {
-    public function add(AddWorkReportRequest $request)
+    public function add(AddWorkReportRequest $request): JsonResponse
     {
         try {
             $data = $request->all();
@@ -31,7 +31,7 @@ class WorkReportController extends Controller
         ], JsonResponse::HTTP_CREATED);
     }
 
-    public function getSalaryList()
+    public function getSalaryList(): JsonResponse
     {
         try {
             $data = collect(WorkReport::groupBy('employee_id')
@@ -55,7 +55,7 @@ class WorkReportController extends Controller
         ], JsonResponse::HTTP_OK);
     }
 
-    public function paySalary()
+    public function paySalary(): JsonResponse
     {
         try {
             WorkReport::where('status', WorkReport::STATUS_UNPAID)

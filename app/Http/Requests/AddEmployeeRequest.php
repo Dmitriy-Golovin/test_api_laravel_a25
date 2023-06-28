@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\JsonResponse;
 
 class AddEmployeeRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class AddEmployeeRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'email' => ['required', 'email', 'unique:users', 'string', 'max:255'],
@@ -21,7 +22,7 @@ class AddEmployeeRequest extends FormRequest
         ];
     }
 
-    public function failedValidation(Validator $validator)
+    public function failedValidation(Validator $validator): JsonResponse
     {
         throw new HttpResponseException(response()->json([
             'success'   => false,
@@ -30,7 +31,7 @@ class AddEmployeeRequest extends FormRequest
         ], 400));
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'email.required' => 'Email обязательно для заполнения',

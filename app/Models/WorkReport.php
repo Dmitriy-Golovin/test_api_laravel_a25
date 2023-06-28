@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class WorkReport extends Model
 {
@@ -19,12 +20,12 @@ class WorkReport extends Model
         'status'
     ];
 
-    public function employee()
+    public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class,'employee_id');
     }
 
-    public function serialize()
+    public function serialize(): array
     {
         return [
             'id' => $this->id,
@@ -34,10 +35,5 @@ class WorkReport extends Model
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];
-    }
-
-    public function serializeSalaryByEmployee()
-    {
-        
     }
 }

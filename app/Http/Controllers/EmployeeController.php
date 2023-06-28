@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 
 class EmployeeController extends Controller
 {
-    public function add(AddEmployeeRequest $request)
+    public function add(AddEmployeeRequest $request): JsonResponse
     {
         try {
             $data = $request->all();
